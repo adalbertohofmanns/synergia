@@ -1,0 +1,11 @@
+<%= simple_form_for @product do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+
+  <%= f.simple_fields_for :available_products do |available_form| %>
+    <%= available_form.input :color_id, collection: @colors %>
+    <%= available_form.input :size_id, as: :radio_buttons, collection: @sizes %>
+  <% end %>
+
+  <%= f.button :submit %>
+<% end %>

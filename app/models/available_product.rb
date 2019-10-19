@@ -3,6 +3,6 @@ class AvailableProduct < ApplicationRecord
   belongs_to :color
   belongs_to :size
 
-  validates :product_id, :color_id, :size_id, presence: true
+  # validates :product_id, :color_id, :size_id, presence: true
 
 end
