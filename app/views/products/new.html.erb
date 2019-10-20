@@ -1,11 +1,19 @@
-<%= simple_form_for @product do |f| %>
-  <%= f.input :name %>
-  <%= f.input :description %>
+<%= simple_form_for @product do |f| %>  
+  <%= f.input :name, label: "Nome" %>
+  <%= f.input :description, label: "Descrição" %>
 
   <%= f.simple_fields_for :available_products do |available_form| %>
-    <%= available_form.input :color_id, collection: @colors %>
-    <%= available_form.input :size_id, as: :radio_buttons, collection: @sizes %>
+    <%= available_form.hidden_field :product_id %>
+    <%= available_form.input :color_id, collection: @colors, label: "Cor" %>
+    <%= available_form.input :size_id, as: :radio_buttons, collection: @sizes, label: "Tamanho" %>
   <% end %>
 
-  <%= f.button :submit %>
+  <div class="form-group string required product_name">
+    <label class="string required" for="product_quantity">Quantidate</label>
+    <input class="form-control string required ui-autocomplete-input" type="number" id="product_quantity" name="product_quantity">
+  </div> 
+
+
+  <%= f.button :submit, "Cadastrar" %>
+  <button type="button" id="reset_form" class="btn btn-link">Limpar formulário</button>
 <% end %>

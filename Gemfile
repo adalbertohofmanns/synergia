@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web. http://getbootstrap.com
 gem 'bootstrap', '~> 4.0.0.alpha3'
 
+# Rails forms made easy.
 gem 'simple_form'
 
 # A library for generating fake data such as names, addresses, and phone numbers.
