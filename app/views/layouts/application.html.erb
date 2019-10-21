@@ -21,134 +21,12 @@
         <a class="p-2 text-dark" href="<%= available_products_path %>">Produtos</a>
         <a class="p-2 text-dark" href="<%= new_available_product_path %>">Cadastrar</a>
       </nav>
-          <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-       Sobre
-      </button>
     </div> 
     <div class="container"> 
       <p id="notice"><%= notice %></p> 
       <%= yield %>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Sobre</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          </div>
-        </div>
-      </div>
-    </div>
     <script type="text/javascript">
-      var products = [];
-
-      $('#reset_form').on('click', reset_form);
-
-      var new_product_form = $("#new_available_product").validate({
-        rules: {
-          'available_product_product_attributes_name': {
-            required: true,
-            minlength: 2
-          },
-          'product[description]': {
-            required: true,
-            minlength: 6
-          },
-          'product[available_products_attributes][0][color_id]': {
-            required: true,
-          },
-          'product[available_products_attributes][0][size_id]':{
-            required: true,
-          },
-          'product_quantity':{
-            required: true,
-            min: 1,
-          },
-        },
-        messages:{
-          'product[name]': {
-            required: "Favor preencher o Nome do produto",
-            minlength: "Digite no minimo 2 caracteres"
-          },
-          'product[description]': {
-            required: "Favor preencher o Nome do produto",
-            minlength: "Digite no minimo 6 caracteres"
-          },
-          'product[available_products_attributes][0][color_id]': {
-            required: "Escolha uma cor"
-          },
-          'product[available_products_attributes][0][size_id]': {
-            required: "Escolha um Tamanho"
-          },
-          'product_quantity': {
-            required: "Valor minimo 01"
-          }
-        },
-        errorPlacement: function(error, element) {
-          if ( element.is(":radio") ) {
-            error.appendTo( element.parents('fieldset') );
-          }
-          else {
-            error.insertAfter( element );
-          }
-        },
-      });
-
-      $.ajax({
-        dataType: 'json',
-        type: 'GET',
-        url: '/products/',
-
-        success: function(data) {
-          products = data
-        },
-        error: function(data) {
-          console.log('erro');
-        }
-      });
-
-      $('#available_product_product_attributes_name').autocomplete({
-        source: function (request, response) {
-          response($.map(products, function (value, key) {
-            return {
-              label: value.name + " (" + value.description + ")",
-              value: value.id,
-              desc: value.description
-            }
-          }));
-        },
-        focus: function(event, ui) {
-          event.preventDefault();
-        },
-        select: function(event, ui) {
-          event.preventDefault();
-          $('#available_product_product_attributes_name').val(ui.item.label);
-          $('#available_product_product_attributes_name').prop('readonly', true);
-          $('#available_product_product_attributes_description').val(ui.item.desc);
-          $('#available_product_product_attributes_description').prop('readonly', true);
-          $('#available_product_product_id').val(ui.item.value);
-        },
-      });
-
-      function reset_form() {
-        $('#available_product_product_attributes_name').val('').prop('readonly', false);
-        $('#available_product_product_attributes_description').val('').prop('readonly', false);
-        $('#product_available_products_attributes_0_color_id').val('');
-        $('#product_quantity').val('');
-        new_product_form.resetForm();
-      }
-
       $(document).ready(function(){
         $('.quantity_plus').bind("ajax:success", function(data) {
           var $span = $(this).parent().parent().find('.product_quantity');
@@ -162,7 +40,6 @@
           $span.text(current_quantity - 1);
         });
       });
-
     </script>
   </body>
 </html>

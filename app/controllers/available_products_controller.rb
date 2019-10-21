@@ -1,7 +1,7 @@
 class AvailableProductsController < ApplicationController
 
   def index
-    @available_products = AvailableProduct.all    
+    @available_products = AvailableProduct.all
   end
 
   def create
@@ -22,7 +22,7 @@ class AvailableProductsController < ApplicationController
 
         redirect_to available_products_path, notice: 'Cadastro realizado com sucesso'
       rescue
-        redirect_to products_path, notice: 'Ocorreu algo de errado, tente novamente'
+        redirect_to available_products_path, notice: 'Ocorreu algo de errado, tente novamente'
       end
     end
   end

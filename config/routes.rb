@@ -8,5 +8,4 @@ Rails.application.routes.draw do
       post :remove_quantity
     end
   end
-
 end

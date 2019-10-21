@@ -15,3 +15,105 @@
   <button type="button" id="reset_form" class="btn btn-link">Limpar formulário</button>
 
 <% end %>
+<script type="text/javascript">
+$(document).ready(function(){
+  var products = [];
+
+  $('#reset_form').on('click', reset_form);
+
+  var new_product_form = $("#new_available_product").validate({
+    rules: {
+      'available_product[product_attributes][name]': {
+        required: true,
+        minlength: 2
+      },
+      'available_product[product_attributes][description]': {
+        required: true,
+        minlength: 6
+      },
+      'available_product[color_id]': {
+        required: true,
+      },
+      'available_product[size_id]':{
+        required: true,
+      },
+      'product_quantity':{
+        required: true,
+        min: 1,
+      },
+    },
+    messages:{
+      'available_product[product_attributes][name]': {
+        required: "Favor preencher o Nome do produto",
+        minlength: "Digite no minimo 2 caracteres"
+      },
+      'available_product[product_attributes][description]': {
+        required: "Favor preencher o Nome do produto",
+        minlength: "Digite no minimo 6 caracteres"
+      },
+      'available_product[color_id]': {
+        required: "Escolha uma cor"
+      },
+      'available_product[size_id]': {
+        required: "Escolha um Tamanho"
+      },
+      'product_quantity': {
+        required: "Valor minimo 01"
+      }
+    },
+    errorPlacement: function(error, element) {
+      if ( element.is(":radio") ) {
+        error.appendTo( element.parents('fieldset') );
+      }
+      else {
+        error.insertAfter( element );
+      }
+    },
+  });
+
+  $.ajax({
+    dataType: 'json',
+    type: 'GET',
+    url: '/products/',
+
+    success: function(data) {
+      products = data
+    },
+    error: function(data) {
+      console.log('erro');
+    }
+  });
+
+  $('#available_product_product_attributes_name').autocomplete({
+    source: function (request, response) {
+      response($.map(products, function (value, key) {
+        return {
+          label: value.name + " (" + value.description + ")",
+          value: value.id,
+          desc: value.description
+        }
+      }));
+    },
+    focus: function(event, ui) {
+      event.preventDefault();
+    },
+    select: function(event, ui) {
+      event.preventDefault();
+      $('#available_product_product_attributes_name').val(ui.item.label);
+      $('#available_product_product_attributes_name').prop('readonly', true);
+      $('#available_product_product_attributes_description').val(ui.item.desc);
+      $('#available_product_product_attributes_description').prop('readonly', true);
+      $('#available_product_product_id').val(ui.item.value);
+    },
+  });
+
+  function reset_form() {
+    $('#available_product_product_attributes_name').val('').prop('readonly', false);
+    $('#available_product_product_attributes_description').val('').prop('readonly', false);
+    $('#product_available_products_attributes_0_color_id').val('');
+    $('#available_product_quantity').val('1');
+    new_product_form.resetForm();
+  }
+    
+});
+</script>

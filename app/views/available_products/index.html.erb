@@ -1,12 +1,12 @@
 <table class="table table-hover table-sm table-bordered">
   <thead>
     <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Cor</th>
-      <th scope="col">Tamanho</th>
-      <th scope="col">Quantidade disponível</th>
-      <th scope="col">Ações</th>
+      <th class="align-middle text-center" scope="col">Nome</th>
+      <th class="align-middle text-center" scope="col">Descrição</th>
+      <th class="align-middle text-center" scope="col">Cor</th>
+      <th class="align-middle text-center" scope="col">Tamanho</th>
+      <th class="align-middle text-center" scope="col">Quantidade disponível</th>
+      <th class="align-middle text-center" scope="col">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -18,8 +18,8 @@
         <td class="align-middle text-center"><%= item.size.name %></td>
         <td class="align-middle text-center"><span class="badge badge-primary badge-pill product_quantity"><%= item.quantity %></span></td>
         <td class="d-flex justify-content-center align-middle">
-            <%= button_to "+", add_quantity_available_product_path(item), remote: true, class: "btn btn-success", form: { class: 'quantity_plus '} %>
             <%= button_to "-", remove_quantity_available_product_path(item), remote: true, class: "btn btn-danger", form: { class: 'quantity_shift '} %>
+            <%= button_to "+", add_quantity_available_product_path(item), remote: true, class: "btn btn-success", form: { class: 'quantity_plus '} %>
         </td>
       </tr>
     <% end %>
