@@ -11,17 +11,17 @@ Gem
 
 Commands to start the App
   RUN
-    bundle install
+  bundle install
 
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    sudo apt update
-    sudo apt install yarn
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  sudo apt update
+  sudo apt install yarn
 
-    yarn install
+  yarn install
 
-    rails db:create
-    rails db:migrate
-    rails gen:color_size
+  rails db:create
+  rails db:migrate
+  rails gen:color_size
 
-    rails server
+  rails server
