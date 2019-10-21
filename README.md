@@ -21,7 +21,9 @@ Commands to start the App
   yarn install
 
   rails db:create
+
   rails db:migrate
+  
   rails gen:color_size
 
   rails server
