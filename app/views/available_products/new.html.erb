@@ -1,0 +1,17 @@
+<%= simple_form_for @available_product do |f| %> 
+  <%= f.hidden_field :product_id %>
+    
+  <%= f.simple_fields_for :product, @available_product.product do |product_form| %>
+    <%= product_form.input :name, label: "Nome" %>
+    <%= product_form.input :description, label: "Descrição" %>
+  <% end %>
+
+  <%= f.input :color_id, collection: @colors, label: "Cor" %>
+  <%= f.input :size_id, as: :radio_buttons, collection: @sizes, label: "Tamanho" %>
+  
+  <%= f.input :quantity, label: "Quantidade", type: :number %>
+
+  <%= f.button :submit, "Cadastrar" %>
+  <button type="button" id="reset_form" class="btn btn-link">Limpar formulário</button>
+
+<% end %>

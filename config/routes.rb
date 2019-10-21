@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  resources :products
-  get '/', to: "products#index"
-  get '/products', to: "products#index"
-  get '/products/json', to: "products#show"
+  root to: "application#index"
   
+  resources :products, only: [:index]
+  resources :available_products, only: [:index, :new, :create, :destroy] do
+    member do 
+      post :add_quantity
+      post :remove_quantity
+    end
+  end
+
 end

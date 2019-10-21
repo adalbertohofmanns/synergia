@@ -18,8 +18,8 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
       <h5 class="my-0 mr-md-auto font-weight-normal">Synergia T-shirts</h5>
       <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="/">Produtos</a>
-        <a class="p-2 text-dark" href="<%= new_product_path %>">Cadastrar</a>
+        <a class="p-2 text-dark" href="<%= available_products_path %>">Produtos</a>
+        <a class="p-2 text-dark" href="<%= new_available_product_path %>">Cadastrar</a>
       </nav>
           <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
@@ -55,9 +55,9 @@
 
       $('#reset_form').on('click', reset_form);
 
-      var new_product_form = $("#new_product").validate({
+      var new_product_form = $("#new_available_product").validate({
         rules: {
-          'product[name]': {
+          'available_product_product_attributes_name': {
             required: true,
             minlength: 2
           },
@@ -108,7 +108,7 @@
       $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: '/products/json/',
+        url: '/products/',
 
         success: function(data) {
           products = data
@@ -118,7 +118,7 @@
         }
       });
 
-      $('#product_name').autocomplete({
+      $('#available_product_product_attributes_name').autocomplete({
         source: function (request, response) {
           response($.map(products, function (value, key) {
             return {
@@ -133,22 +133,35 @@
         },
         select: function(event, ui) {
           event.preventDefault();
-          $('#product_name').val(ui.item.label);
-          $('#product_name').prop('readonly', true);
-          $('#product_description').val(ui.item.desc);
-          $('#product_description').prop('readonly', true);
-          $('#product_available_products_attributes_0_product_id').val(ui.item.value);
+          $('#available_product_product_attributes_name').val(ui.item.label);
+          $('#available_product_product_attributes_name').prop('readonly', true);
+          $('#available_product_product_attributes_description').val(ui.item.desc);
+          $('#available_product_product_attributes_description').prop('readonly', true);
+          $('#available_product_product_id').val(ui.item.value);
         },
       });
 
       function reset_form() {
-        $('#product_name').val('').prop('readonly', false);
-        $('#product_description').val('').prop('readonly', false);
+        $('#available_product_product_attributes_name').val('').prop('readonly', false);
+        $('#available_product_product_attributes_description').val('').prop('readonly', false);
         $('#product_available_products_attributes_0_color_id').val('');
         $('#product_quantity').val('');
         new_product_form.resetForm();
       }
 
+      $(document).ready(function(){
+        $('.quantity_plus').bind("ajax:success", function(data) {
+          var $span = $(this).parent().parent().find('.product_quantity');
+          var current_quantity = parseInt($span.text());
+          $span.text(current_quantity + 1);
+        });
+
+        $('.quantity_shift').bind("ajax:success", function(data) {
+          var $span = $(this).parent().parent().find('.product_quantity');
+          var current_quantity = parseInt($span.text());
+          $span.text(current_quantity - 1);
+        });
+      });
 
     </script>
   </body>
