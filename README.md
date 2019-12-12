@@ -31,3 +31,5 @@ Commands to start the App
   rails gen:color_size
 
   rails server
+
+access here: https://synergia.herokuapp.com/available_products
